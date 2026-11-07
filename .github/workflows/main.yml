@@ -16,7 +16,11 @@ jobs:
     steps:
       - name: Lay ma nguon
         uses: actions/checkout@v4
-
+      - name: Giai nen ma nguon Android
+        run: |
+          unzip -q HuyenThienKinh_Android_BuildReady.zip -d android-src
+          echo "Da giai nen ma nguon"
+          find android-src -maxdepth 4 -type f | head -50
       - name: Cai Java
         uses: actions/setup-java@v4
         with:
