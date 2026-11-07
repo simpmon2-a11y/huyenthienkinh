@@ -28,25 +28,16 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      
       - name: Tim thu muc Android
         run: |
           PROJECT_DIR="$(find . -type f \( -name settings.gradle -o -name settings.gradle.kts \) -not -path '*/.gradle/*' -printf '%h\n' | head -n 1)"
           if [ -z "$PROJECT_DIR" ]; then
             echo "Khong tim thay settings.gradle"
-            find . -maxdepth 4 -type f | head -100
+            find . -maxdepth 5 -type f | head -100
             exit 1
           fi
           echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
           echo "Tim thay Android project: $PROJECT_DIR"
-
-        run: |
-          PROJECT_DIR="$(find . -name settings.gradle -not -path '*/.gradle/*' -printf '%h\n' | head -n 1)"
-          if [ -z "$PROJECT_DIR" ]; then
-            echo "Khong tim thay settings.gradle"
-            exit 1
-          fi
-          echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
 
       - name: Bien dich APK
         run: gradle -p "$PROJECT_DIR" assembleDebug
